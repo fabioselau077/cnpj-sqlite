@@ -14,9 +14,9 @@ url = 'http://200.152.38.155/CNPJ/'
 
 pasta_compactados = r"dados-publicos-zip" #local dos arquivos zipados da Receita
 
-if len(glob.glob(os.path.join(pasta_compactados,'*.zip'))):
-    print(f'Há arquivos zip na pasta {pasta_compactados}. Apague ou mova esses arquivos zip e tente novamente')
-    sys.exit()
+# if len(glob.glob(os.path.join(pasta_compactados,'*.zip'))):
+#     print(f'Há arquivos zip na pasta {pasta_compactados}. Apague ou mova esses arquivos zip e tente novamente')
+#     sys.exit()
        
 page = requests.get(url)    
 data = page.text
@@ -26,18 +26,21 @@ print('Relação de Arquivos em ' + url)
 for link in soup.find_all('a'):
     if str(link.get('href')).endswith('.zip'): 
         cam = link.get('href')
+        nome_arquivo = cam.split('/')[-1]
+
         # if cam.startswith('http://http'):
         #     cam = 'http://' + cam[len('http://http//'):] 
-        if not cam.startswith('http'):
-            print(url+cam)
-            lista.append(url+cam)
-        else:
-            print(cam)
-            lista.append(cam)
+        if not os.path.exists("dados-publicos-zip/" + nome_arquivo):
+            if not cam.startswith('http'):
+                print(url+cam)
+                lista.append(url+cam)
+            else:
+                print(cam)
+                lista.append(cam)
             
-resp = input(f'Deseja baixar os arquivos acima para a pasta {pasta_compactados} (y/n)?')
-if resp.lower()!='y' and resp.lower()!='s':
-    sys.exit()
+# resp = input(f'Deseja baixar os arquivos acima para a pasta {pasta_compactados} (y/n)?')
+# if resp.lower()!='y' and resp.lower()!='s':
+#     sys.exit()
     
 def bar_progress(current, total, width=80):
     if total>=2**20:
