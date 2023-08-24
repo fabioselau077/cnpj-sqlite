@@ -165,6 +165,8 @@ CREATE  INDEX idx_estabelecimento_uf ON estabelecimento (uf);
 CREATE  INDEX idx_estabelecimento_municipio ON estabelecimento (municipio);
 CREATE  INDEX idx_estabelecimento_data_inicio_atividades ON estabelecimento (data_inicio_atividades);
 CREATE  INDEX idx_estabelecimento_situacao_cadastral ON estabelecimento (situacao_cadastral);
+CREATE  INDEX idx_estabelecimento_cnae_fiscal ON estabelecimento (cnae_fiscal);
+CREATE  INDEX idx_estabelecimento_data_inicio_atividades ON estabelecimento (data_inicio_atividades);
 
 CREATE INDEX idx_socios_original_cnpj_basico
 ON socios_original(cnpj_basico);
@@ -178,6 +180,7 @@ where te.matriz_filial='1';
 DROP TABLE IF EXISTS socios_original;
 
 CREATE INDEX idx_socios_cnpj ON socios(cnpj);
+CREATE INDEX idx_socios_cnpj_basico ON socios(cnpj_basico);
 CREATE INDEX idx_socios_cnpj_cpf_socio ON socios(cnpj_cpf_socio);
 CREATE INDEX idx_socios_nome_socio ON socios(nome_socio);
 CREATE INDEX idx_socios_representante ON socios(representante_legal);
