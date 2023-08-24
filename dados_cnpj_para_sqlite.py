@@ -24,9 +24,9 @@ pasta_compactados = r"dados-publicos-zip" #local dos arquivos zipados da Receita
 pasta_saida = r"dados-publicos" #esta pasta deve estar vazia. 
 
 cam = os.path.join(pasta_saida, 'cnpj.db') 
-if os.path.exists(cam):
-    input(f'O arquivo {cam} já existe. Apague-o primeiro e rode este script novamente.')
-    sys.exit()
+# if os.path.exists(cam):
+#     input(f'O arquivo {cam} já existe. Apague-o primeiro e rode este script novamente.')
+#     sys.exit()
 
 print('Início:', time.asctime())
 
@@ -144,7 +144,7 @@ carregaTipo('socios_original', '.SOCIOCSV', colunas_socios)
 carregaTipo('simples', '.SIMPLES.CSV.*', colunas_simples)
 
 #ajusta capital social e indexa as colunas
-
+print('ajusta capital social e indexa as colunas')
 sqls = '''
 ALTER TABLE empresas ADD COLUMN capital_social real;
 update  empresas
@@ -161,6 +161,10 @@ CREATE  INDEX idx_empresas_razao_social ON empresas (razao_social);
 CREATE  INDEX idx_estabelecimento_cnpj_basico ON estabelecimento (cnpj_basico);
 CREATE  INDEX idx_estabelecimento_cnpj ON estabelecimento (cnpj);
 CREATE  INDEX idx_estabelecimento_nomefantasia ON estabelecimento (nome_fantasia);
+CREATE  INDEX idx_estabelecimento_uf ON estabelecimento (uf);
+CREATE  INDEX idx_estabelecimento_municipio ON estabelecimento (municipio);
+CREATE  INDEX idx_estabelecimento_data_inicio_atividades ON estabelecimento (data_inicio_atividades);
+CREATE  INDEX idx_estabelecimento_situacao_cadastral ON estabelecimento (situacao_cadastral);
 
 CREATE INDEX idx_socios_original_cnpj_basico
 ON socios_original(cnpj_basico);
