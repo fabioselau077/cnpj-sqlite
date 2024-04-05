@@ -18,8 +18,8 @@ A utilização da biblioteca DASK tem desempenho melhor do que o uso de PANDAS (
 
 import pandas as pd, sqlalchemy, glob, time, dask.dataframe as dd
 import os, sys, zipfile
-
-dataReferencia = 'xx/xx/2022' #input('Data de referência da base dd/mm/aaaa: ')
+os.environ['SQLALCHEMY_WARN_20'] = '1'
+dataReferencia = '20/03/2024' #input('Data de referência da base dd/mm/aaaa: ')
 pasta_compactados = r"dados-publicos-zip" #local dos arquivos zipados da Receita
 pasta_saida = r"dados-publicos" #esta pasta deve estar vazia. 
 
@@ -158,6 +158,8 @@ set cnpj = cnpj_basico||cnpj_ordem||cnpj_dv;
 
 CREATE  INDEX idx_empresas_cnpj_basico ON empresas (cnpj_basico);
 CREATE  INDEX idx_empresas_razao_social ON empresas (razao_social);
+CREATE  INDEX idx_empresas_natureza_juridica ON empresas (natureza_juridica);
+CREATE  INDEX idx_empresas_capital_social ON empresas (capital_social);
 CREATE  INDEX idx_estabelecimento_cnpj_basico ON estabelecimento (cnpj_basico);
 CREATE  INDEX idx_estabelecimento_cnpj ON estabelecimento (cnpj);
 CREATE  INDEX idx_estabelecimento_nomefantasia ON estabelecimento (nome_fantasia);
@@ -166,7 +168,6 @@ CREATE  INDEX idx_estabelecimento_municipio ON estabelecimento (municipio);
 CREATE  INDEX idx_estabelecimento_data_inicio_atividades ON estabelecimento (data_inicio_atividades);
 CREATE  INDEX idx_estabelecimento_situacao_cadastral ON estabelecimento (situacao_cadastral);
 CREATE  INDEX idx_estabelecimento_cnae_fiscal ON estabelecimento (cnae_fiscal);
-CREATE  INDEX idx_estabelecimento_data_inicio_atividades ON estabelecimento (data_inicio_atividades);
 
 CREATE INDEX idx_socios_original_cnpj_basico
 ON socios_original(cnpj_basico);
